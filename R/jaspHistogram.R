@@ -49,7 +49,7 @@ jaspHistogram <- function(
   if (missing(xName))
     xName <- deparse1(substitute(x)) # identical to plot.default
 
-  if (!is.character(xName))
+  if (!is.character(xName) && !is.null(xName))
     stop2("`xName` must be character but has class ", paste(class(xName), collapse = ", "), "!")
 
   if (!is.null(groupingVariable) && !is.factor(groupingVariable))
