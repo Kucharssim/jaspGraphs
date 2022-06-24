@@ -178,7 +178,7 @@ jaspCorrelationMatrix <- function(
 .patchPlots <- function(subplots, args, decodeplotFun = get0("decodeplot"), ...) {
 
   if(!is.null(decodeplotFun))
-    g <- lapply(subplots, decodeplotFun)
+    g <- lapply(subplots, decodeplotFun, returnGrob = FALSE)
 
   g <- patchwork::wrap_plots(
     subplots,
