@@ -176,6 +176,10 @@ jaspCorrelationMatrix <- function(
 }
 
 .patchPlots <- function(subplots, args, decodeplotFun = get0("decodeplot"), ...) {
+
+  if(!is.null(decodeplotFun))
+    g <- lapply(subplots, decodeplotFun)
+
   g <- patchwork::wrap_plots(
     subplots,
     ncol    = args[["ncol"]],
@@ -184,9 +188,6 @@ jaspCorrelationMatrix <- function(
     heights = args[["heights"]],
     byrow   = args[["byrow"]]
   )
-
-  if (!is.null(decodeplotFun))
-    g <- decodeplotFun(g)
 
   return(g)
 }
