@@ -106,7 +106,16 @@ jaspCorrelationMatrix <- function(
   }
   #out <- ggMatrixPlot(plots, leftLabels = variables, topLabels = variables)
   margins <- c(0.05*length(variables), rep(0.95, length(variables)))
-  out <- patchwork::wrap_plots(plots, ncol = ncol(data)+1, nrow = ncol(data)+1, byrow = TRUE, widths = margins, heights = margins)
+  # out <- patchwork::wrap_plots(plots, ncol = ncol(data)+1, nrow = ncol(data)+1, byrow = TRUE, widths = margins, heights = margins)
+  out <- jaspGraphsPlot$new(
+    subplots     = plots,
+    plotFunction = .patchPlots,
+    ncol         = ncol(data)+1,
+    nrow         = ncol(data)+1,
+    widths       = margins,
+    heights      = margins,
+    byrow        = TRUE
+  )
   return(out)
 }
 
@@ -164,6 +173,22 @@ jaspCorrelationMatrix <- function(
   }
 
   return(res)
+}
+
+.patchPlots <- function(subplots, args, decodeplotFun = get0("decodeplot"), ...) {
+  g <- patchwork::wrap_plots(
+    subplots,
+    ncol    = args[["ncol"]],
+    nrow    = args[["nrow"]],
+    widths  = args[["widths"]],
+    heights = args[["heights"]],
+    byrow   = args[["byrow"]]
+  )
+
+  if (!is.null(decodeplotFun))
+    g <- decodeplotFun(g)
+
+  return(g)
 }
 
 #' Scatter plot
