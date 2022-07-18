@@ -23,6 +23,7 @@
 #'   \item{\code{"x"}}{x-axis gets overwritten (see option \code{"both"}), y-axis does not (see option \code{"none"}).}
 #'   \item{\code{"y"}}{y-axis gets overwritten (see option \code{"both"}), x-axis does not (see option \code{"none"}).}
 #' }
+#' @param plot Logical; if \code{TRUE}, the plot object is returned, otherwise an object of class \code{jaspGraphsPlot} is returned.
 #'
 #' @example inst/examples/ex-jaspCorrelationMatrix.R
 #' @export
@@ -36,7 +37,8 @@ jaspCorrelationMatrix <- function(
     bottomLeftArgs = list(),
     overwriteDiagonalAxes   = "x",
     overwriteTopRightAxes   = "both",
-    overwriteBottomLeftAxes = "both"
+    overwriteBottomLeftAxes = "both",
+    plot = TRUE
 ) {
 
   # validate input
@@ -104,18 +106,21 @@ jaspCorrelationMatrix <- function(
       i <- i + 1
     }
   }
-  #out <- ggMatrixPlot(plots, leftLabels = variables, topLabels = variables)
+
   margins <- c(0.05*length(variables), rep(0.95, length(variables)))
-  # out <- patchwork::wrap_plots(plots, ncol = ncol(data)+1, nrow = ncol(data)+1, byrow = TRUE, widths = margins, heights = margins)
-  out <- jaspGraphsPlot$new(
-    subplots     = plots,
-    plotFunction = .patchPlots,
-    ncol         = ncol(data)+1,
-    nrow         = ncol(data)+1,
-    widths       = margins,
-    heights      = margins,
-    byrow        = TRUE
-  )
+  if(plot) {
+    out <- patchwork::wrap_plots(plots, ncol = ncol(data)+1, nrow = ncol(data)+1, byrow = TRUE, widths = margins, heights = margins)
+  } else {
+    out <- jaspGraphsPlot$new(
+      subplots     = plots,
+      plotFunction = .patchPlots,
+      ncol         = ncol(data)+1,
+      nrow         = ncol(data)+1,
+      widths       = margins,
+      heights      = margins,
+      byrow        = TRUE
+    )
+  }
   return(out)
 }
 
