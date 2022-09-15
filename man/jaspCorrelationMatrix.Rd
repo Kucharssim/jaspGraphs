@@ -14,7 +14,8 @@ jaspCorrelationMatrix(
   bottomLeftArgs = list(),
   overwriteDiagonalAxes = "x",
   overwriteTopRightAxes = "both",
-  overwriteBottomLeftAxes = "both"
+  overwriteBottomLeftAxes = "both",
+  patch = TRUE
 )
 }
 \arguments{
@@ -39,6 +40,8 @@ jaspCorrelationMatrix(
 \item{\code{"x"}}{x-axis gets overwritten (see option \code{"both"}), y-axis does not (see option \code{"none"}).}
 \item{\code{"y"}}{y-axis gets overwritten (see option \code{"both"}), x-axis does not (see option \code{"none"}).}
 }}
+
+\item{patch}{Logical; if \code{TRUE}, the plot object is returned, otherwise an object of class \code{jaspGraphsPlot} is returned.}
 }
 \description{
 Plot that consists of \code{ncol{data}} by \code{ncol{data}} plots,

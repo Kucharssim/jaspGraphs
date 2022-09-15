@@ -23,7 +23,7 @@
 #'   \item{\code{"x"}}{x-axis gets overwritten (see option \code{"both"}), y-axis does not (see option \code{"none"}).}
 #'   \item{\code{"y"}}{y-axis gets overwritten (see option \code{"both"}), x-axis does not (see option \code{"none"}).}
 #' }
-#' @param plot Logical; if \code{TRUE}, the plot object is returned, otherwise an object of class \code{jaspGraphsPlot} is returned.
+#' @param patch Logical; if \code{TRUE}, the plot object is returned, otherwise an object of class \code{jaspGraphsPlot} is returned.
 #'
 #' @example inst/examples/ex-jaspCorrelationMatrix.R
 #' @export
@@ -38,7 +38,7 @@ jaspCorrelationMatrix <- function(
     overwriteDiagonalAxes   = "x",
     overwriteTopRightAxes   = "both",
     overwriteBottomLeftAxes = "both",
-    plot = TRUE
+    patch = TRUE
 ) {
 
   # validate input
@@ -108,7 +108,7 @@ jaspCorrelationMatrix <- function(
   }
 
   margins <- c(0.05*length(variables), rep(0.95, length(variables)))
-  if(plot) {
+  if(patch) {
     out <- patchwork::wrap_plots(plots, ncol = ncol(data)+1, nrow = ncol(data)+1, byrow = TRUE, widths = margins, heights = margins)
   } else {
     out <- jaspGraphsPlot$new(
